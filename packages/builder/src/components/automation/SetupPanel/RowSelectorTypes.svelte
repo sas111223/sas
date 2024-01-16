@@ -89,4 +89,16 @@
     allowJS={true}
     updateOnChange={false}
   />
+{:else if schema.type === "attachment"}
+  <svelte:component
+    this={DrawerBindableInput}
+    panel={AutomationBindingPanel}
+    value={value[field]}
+    on:change={e => onChange(e, field)}
+    type="string"
+    bindings={parsedBindings}
+    fillWidth={true}
+    allowJS={true}
+    updateOnChange={false}
+  />
 {/if}
