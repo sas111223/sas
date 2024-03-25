@@ -24,6 +24,7 @@ import { getDatasourcePlugin } from "../utilities/fileSystem"
 import env from "../environment"
 import cloneDeep from "lodash/cloneDeep"
 import sdk from "../sdk"
+import googlecloud from "./googlecloud"
 
 const DEFINITIONS: Record<SourceName, Integration | undefined> = {
   [SourceName.POSTGRES]: postgres.schema,
@@ -43,6 +44,7 @@ const DEFINITIONS: Record<SourceName, Integration | undefined> = {
   [SourceName.SNOWFLAKE]: snowflake.schema,
   [SourceName.ORACLE]: undefined,
   [SourceName.BUDIBASE]: undefined,
+  [SourceName.GOOGLE_CLOUD]: googlecloud.schema,
 }
 
 type IntegrationBaseConstructor = new (...args: any[]) => IntegrationBase
@@ -66,6 +68,7 @@ const INTEGRATIONS: Record<SourceName, IntegrationBaseConstructor | undefined> =
     [SourceName.SNOWFLAKE]: snowflake.integration,
     [SourceName.ORACLE]: undefined,
     [SourceName.BUDIBASE]: undefined,
+    [SourceName.GOOGLE_CLOUD]: googlecloud.integration,
   }
 
 // optionally add oracle integration if the oracle binary can be installed

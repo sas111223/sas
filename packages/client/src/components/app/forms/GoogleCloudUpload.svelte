@@ -20,5 +20,5 @@
   {disabled}
   {validation}
   {onChange}
-  storeFieldType={"s3upload"}
+  storeFieldType={"googlecloudupload"}
 />

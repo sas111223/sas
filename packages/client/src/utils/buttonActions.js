@@ -320,6 +320,17 @@ const updateStateHandler = action => {
   }
 }
 
+const googleCloudUploadHandler = async action => {
+  const { componentId } = action.parameters
+  if (!componentId) {
+    return
+  }
+  const res = await uploadStore.actions.processFileUpload(componentId)
+  return {
+    publicUrl: res?.publicUrl,
+  }
+}
+
 const s3UploadHandler = async action => {
   const { componentId } = action.parameters
   if (!componentId) {
@@ -412,6 +423,7 @@ const handlerMap = {
   ["Close Screen Modal"]: closeScreenModalHandler,
   ["Update State"]: updateStateHandler,
   ["Upload File to S3"]: s3UploadHandler,
+  ["Upload File to GoogleCloud"]: googleCloudUploadHandler,
   ["Export Data"]: exportDataHandler,
   ["Continue if / Stop if"]: continueIfHandler,
   ["Show Notification"]: showNotificationHandler,
