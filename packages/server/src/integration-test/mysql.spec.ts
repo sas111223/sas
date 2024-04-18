@@ -79,6 +79,10 @@ describe("mysql integrations", () => {
           name: "description",
           type: FieldType.STRING,
         },
+        date: {
+          name: "date",
+          type: FieldType.DATETIME,
+        },
         value: {
           name: "value",
           type: FieldType.NUMBER,
