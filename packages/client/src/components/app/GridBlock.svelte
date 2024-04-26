@@ -1,8 +1,8 @@
 <script>
   // NOTE: this is not a block - it's just named as such to avoid confusing users,
   // because it functions similarly to one
-  import { getContext } from "svelte"
-  import { get } from "svelte/store"
+  import { getContext, onMount } from "svelte"
+  import { get, derived, readable } from "svelte/store"
   import { Grid } from "@budibase/frontend-core"
 
   // table is actually any datasource, but called table for legacy compatibility
@@ -36,17 +36,18 @@
   } = getContext("sdk")
 
   let grid
+  let gridContext
 
-  $: columnWhitelist = parsedColumns
-    ?.filter(col => col.active)
-    ?.map(col => col.field)
+  $: parsedColumns = getParsedColumns(columns)
+  $: columnWhitelist = parsedColumns.filter(x => x.active).map(x => x.field)
   $: schemaOverrides = getSchemaOverrides(parsedColumns)
   $: enrichedButtons = enrichButtons(buttons)
-  $: parsedColumns = getParsedColumns(columns)
+  $: selectedRows = deriveSelectedRows(gridContext)
+  $: data = { selectedRows: $selectedRows }
   $: actions = [
     {
       type: ActionTypes.RefreshDatasource,
-      callback: () => grid?.getContext()?.rows.actions.refreshData(),
+      callback: () => gridContext?.rows.actions.refreshData(),
       metadata: { dataSource: table },
     },
   ]
@@ -66,12 +67,14 @@
 
   // Parses columns to fix older formats
   const getParsedColumns = columns => {
+    if (!columns?.length) {
+      return []
+    }
     // If the first element has an active key all elements should be in the new format
-    if (columns?.length && columns[0]?.active !== undefined) {
+    if (columns[0].active !== undefined) {
       return columns
     }
-
-    return columns?.map(column => ({
+    return columns.map(column => ({
       label: column.displayName || column.name,
       field: column.name,
       active: true,
@@ -80,7 +83,7 @@
 
   const getSchemaOverrides = columns => {
     let overrides = {}
-    columns?.forEach(column => {
+    columns.forEach(column => {
       overrides[column.field] = {
         displayName: column.label,
       }
@@ -106,13 +109,34 @@
       },
     }))
   }
+
+  const deriveSelectedRows = gridContext => {
+    if (!gridContext) {
+      return readable([])
+    }
+    return derived(
+      [gridContext.selectedRows, gridContext.rowLookupMap, gridContext.rows],
+      ([$selectedRows, $rowLookupMap, $rows]) => {
+        return Object.entries($selectedRows || {})
+          .filter(([_, selected]) => selected)
+          .map(([rowId]) => {
+            const idx = $rowLookupMap[rowId]
+            return gridContext.rows.actions.cleanRow($rows[idx])
+          })
+      }
+    )
+  }
+
+  onMount(() => {
+    gridContext = grid.getContext()
+  })
 </script>
 
 <div
   use:styleable={$component.styles}
   class:in-builder={$builderStore.inBuilder}
 >
-  <Provider {actions}>
+  <Provider {data} {actions}>
     <Grid
       bind:this={grid}
       datasource={table}
@@ -132,6 +156,7 @@
       canEditColumns={false}
       canExpandRows={false}
       canSaveSchema={false}
+      canSelectRows={true}
       showControls={false}
       notifySuccess={notificationStore.actions.success}
       notifyError={notificationStore.actions.error}
