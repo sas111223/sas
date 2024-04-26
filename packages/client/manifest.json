@@ -13,6 +13,42 @@
     "sidePanel": true,
     "skeletonLoader": true
   },
+  "typeSupportPresets": {
+    "numberLike": {
+      "supported": ["number", "boolean"],
+      "partialSupport": [
+        { "type": "longform", "message": "stringAsNumber" },
+        { "type": "string", "message": "stringAsNumber" },
+        { "type": "bigint", "message": "stringAsNumber" },
+        { "type": "options", "message": "stringAsNumber" },
+        { "type": "formula", "message": "stringAsNumber" },
+        { "type": "datetime", "message": "dateAsNumber"}
+      ],
+      "unsupported": [
+        { "type": "json", "message": "jsonPrimitivesOnly" }
+      ]
+    },
+    "stringLike": {
+      "supported": ["string", "number", "bigint", "options", "longform", "boolean", "datetime"],
+      "unsupported": [
+        { "type": "json", "message": "jsonPrimitivesOnly" }
+      ]
+    },
+    "datetimeLike": {
+      "supported": ["datetime"],
+      "partialSupport": [
+        { "type": "longform", "message": "stringAsDate" },
+        { "type": "string", "message": "stringAsDate" },
+        { "type": "options", "message": "stringAsDate" },
+        { "type": "formula", "message": "stringAsDate" },
+        { "type": "bigint", "message": "stringAsDate" },
+        { "type": "number", "message": "numberAsDate"}
+      ],
+      "unsupported": [
+        { "type": "json", "message": "jsonPrimitivesOnly" }
+      ]
+    }
+  },
   "layout": {
     "name": "Layout",
     "description": "This component is specific only to layouts",
@@ -1602,6 +1638,7 @@
     ]
   },
   "bar": {
+    "documentationLink": "https://docs.budibase.com/docs/bar-chart",
     "name": "Bar Chart",
     "description": "Bar chart",
     "icon": "GraphBarVertical",
@@ -1626,6 +1663,11 @@
         "label": "Label column",
         "key": "labelColumn",
         "dependsOn": "dataProvider",
+        "explanation": {
+          "typeSupport": {
+            "preset": "stringLike"
+          }
+        },
         "required": true
       },
       {
@@ -1633,12 +1675,17 @@
         "label": "Data columns",
         "key": "valueColumns",
         "dependsOn": "dataProvider",
+        "explanation": {
+          "typeSupport": {
+            "preset": "numberLike"
+          }
+        },
         "required": true
       },
       {
         "type": "select",
         "label": "Format",
-        "key": "yAxisUnits",
+        "key": "valueUnits",
         "options": ["Default", "Thousands", "Millions"],
         "defaultValue": "Default"
       },
@@ -1667,19 +1714,19 @@
         "type": "select",
         "label": "Colors",
         "key": "palette",
-        "defaultValue": "Palette 1",
+        "defaultValue": "palette1",
         "options": [
-          "Custom",
-          "Palette 1",
-          "Palette 2",
-          "Palette 3",
-          "Palette 4",
-          "Palette 5",
-          "Palette 6",
-          "Palette 7",
-          "Palette 8",
-          "Palette 9",
-          "Palette 10"
+          { "label": "Custom", "value": "Custom" },
+          { "label": "Palette 1", "value": "palette1" },
+          { "label": "Palette 2", "value": "palette2" },
+          { "label": "Palette 3", "value": "palette3" },
+          { "label": "Palette 4", "value": "palette4" },
+          { "label": "Palette 5", "value": "palette5" },
+          { "label": "Palette 6", "value": "palette6" },
+          { "label": "Palette 7", "value": "palette7" },
+          { "label": "Palette 8", "value": "palette8" },
+          { "label": "Palette 9", "value": "palette9" },
+          { "label": "Palette 10", "value": "palette10" }
         ]
       },
       {
@@ -1760,6 +1807,7 @@
     ]
   },
   "line": {
+    "documentationLink": "https://docs.budibase.com/docs/line-chart",
     "name": "Line Chart",
     "description": "Line chart",
     "icon": "GraphTrend",
@@ -1784,6 +1832,11 @@
         "label": "Label column",
         "key": "labelColumn",
         "dependsOn": "dataProvider",
+        "explanation": {
+          "typeSupport": {
+            "preset": "stringLike"
+          }
+        },
         "required": true
       },
       {
@@ -1791,12 +1844,17 @@
         "label": "Data columns",
         "key": "valueColumns",
         "dependsOn": "dataProvider",
+        "explanation": {
+          "typeSupport": {
+            "preset": "numberLike"
+          }
+        },
         "required": true
       },
       {
         "type": "select",
         "label": "Format",
-        "key": "yAxisUnits",
+        "key": "valueUnits",
         "options": ["Default", "Thousands", "Millions"],
         "defaultValue": "Default"
       },
@@ -1825,19 +1883,19 @@
         "type": "select",
         "label": "Colors",
         "key": "palette",
-        "defaultValue": "Palette 1",
+        "defaultValue": "palette1",
         "options": [
-          "Custom",
-          "Palette 1",
-          "Palette 2",
-          "Palette 3",
-          "Palette 4",
-          "Palette 5",
-          "Palette 6",
-          "Palette 7",
-          "Palette 8",
-          "Palette 9",
-          "Palette 10"
+          { "label": "Custom", "value": "Custom" },
+          { "label": "Palette 1", "value": "palette1" },
+          { "label": "Palette 2", "value": "palette2" },
+          { "label": "Palette 3", "value": "palette3" },
+          { "label": "Palette 4", "value": "palette4" },
+          { "label": "Palette 5", "value": "palette5" },
+          { "label": "Palette 6", "value": "palette6" },
+          { "label": "Palette 7", "value": "palette7" },
+          { "label": "Palette 8", "value": "palette8" },
+          { "label": "Palette 9", "value": "palette9" },
+          { "label": "Palette 10", "value": "palette10" }
         ]
       },
       {
@@ -1913,6 +1971,7 @@
     ]
   },
   "area": {
+    "documentationLink": "https://docs.budibase.com/docs/area-chart",
     "name": "Area Chart",
     "description": "Line chart",
     "icon": "GraphAreaStacked",
@@ -1937,6 +1996,11 @@
         "label": "Label column",
         "key": "labelColumn",
         "dependsOn": "dataProvider",
+        "explanation": {
+          "typeSupport": {
+            "preset": "stringLike"
+          }
+        },
         "required": true
       },
       {
@@ -1944,12 +2008,17 @@
         "label": "Data columns",
         "key": "valueColumns",
         "dependsOn": "dataProvider",
+        "explanation": {
+          "typeSupport": {
+            "preset": "numberLike"
+          }
+        },
         "required": true
       },
       {
         "type": "select",
         "label": "Format",
-        "key": "yAxisUnits",
+        "key": "valueUnits",
         "options": ["Default", "Thousands", "Millions"],
         "defaultValue": "Default"
       },
@@ -1978,19 +2047,19 @@
         "type": "select",
         "label": "Colors",
         "key": "palette",
-        "defaultValue": "Palette 1",
+        "defaultValue": "palette1",
         "options": [
-          "Custom",
-          "Palette 1",
-          "Palette 2",
-          "Palette 3",
-          "Palette 4",
-          "Palette 5",
-          "Palette 6",
-          "Palette 7",
-          "Palette 8",
-          "Palette 9",
-          "Palette 10"
+          { "label": "Custom", "value": "Custom" },
+          { "label": "Palette 1", "value": "palette1" },
+          { "label": "Palette 2", "value": "palette2" },
+          { "label": "Palette 3", "value": "palette3" },
+          { "label": "Palette 4", "value": "palette4" },
+          { "label": "Palette 5", "value": "palette5" },
+          { "label": "Palette 6", "value": "palette6" },
+          { "label": "Palette 7", "value": "palette7" },
+          { "label": "Palette 8", "value": "palette8" },
+          { "label": "Palette 9", "value": "palette9" },
+          { "label": "Palette 10", "value": "palette10" }
         ]
       },
       {
@@ -2078,6 +2147,7 @@
     ]
   },
   "pie": {
+    "documentationLink": "https://docs.budibase.com/docs/pie-donut-chart",
     "name": "Pie Chart",
     "description": "Pie chart",
     "icon": "GraphPie",
@@ -2102,13 +2172,23 @@
         "label": "Label column",
         "key": "labelColumn",
         "dependsOn": "dataProvider",
+        "explanation": {
+          "typeSupport": {
+            "preset": "stringLike"
+          }
+        },
         "required": true
       },
       {
         "type": "field",
-        "label": "Data columns",
+        "label": "Data column",
         "key": "valueColumn",
         "dependsOn": "dataProvider",
+        "explanation": {
+          "typeSupport": {
+            "preset": "numberLike"
+          }
+        },
         "required": true
       },
       {
@@ -2126,19 +2206,19 @@
         "type": "select",
         "label": "Colors",
         "key": "palette",
-        "defaultValue": "Palette 1",
+        "defaultValue": "palette1",
         "options": [
-          "Custom",
-          "Palette 1",
-          "Palette 2",
-          "Palette 3",
-          "Palette 4",
-          "Palette 5",
-          "Palette 6",
-          "Palette 7",
-          "Palette 8",
-          "Palette 9",
-          "Palette 10"
+          { "label": "Custom", "value": "Custom" },
+          { "label": "Palette 1", "value": "palette1" },
+          { "label": "Palette 2", "value": "palette2" },
+          { "label": "Palette 3", "value": "palette3" },
+          { "label": "Palette 4", "value": "palette4" },
+          { "label": "Palette 5", "value": "palette5" },
+          { "label": "Palette 6", "value": "palette6" },
+          { "label": "Palette 7", "value": "palette7" },
+          { "label": "Palette 8", "value": "palette8" },
+          { "label": "Palette 9", "value": "palette9" },
+          { "label": "Palette 10", "value": "palette10" }
         ]
       },
       {
@@ -2207,6 +2287,7 @@
     ]
   },
   "donut": {
+    "documentationLink": "https://docs.budibase.com/docs/pie-donut-chart",
     "name": "Donut Chart",
     "description": "Donut chart",
     "icon": "GraphDonut",
@@ -2231,6 +2312,11 @@
         "label": "Label column",
         "key": "labelColumn",
         "dependsOn": "dataProvider",
+        "explanation": {
+          "typeSupport": {
+            "preset": "stringLike"
+          }
+        },
         "required": true
       },
       {
@@ -2238,6 +2324,11 @@
         "label": "Data columns",
         "key": "valueColumn",
         "dependsOn": "dataProvider",
+        "explanation": {
+          "typeSupport": {
+            "preset": "numberLike"
+          }
+        },
         "required": true
       },
       {
@@ -2255,19 +2346,19 @@
         "type": "select",
         "label": "Colors",
         "key": "palette",
-        "defaultValue": "Palette 1",
+        "defaultValue": "palette1",
         "options": [
-          "Custom",
-          "Palette 1",
-          "Palette 2",
-          "Palette 3",
-          "Palette 4",
-          "Palette 5",
-          "Palette 6",
-          "Palette 7",
-          "Palette 8",
-          "Palette 9",
-          "Palette 10"
+          { "label": "Custom", "value": "Custom" },
+          { "label": "Palette 1", "value": "palette1" },
+          { "label": "Palette 2", "value": "palette2" },
+          { "label": "Palette 3", "value": "palette3" },
+          { "label": "Palette 4", "value": "palette4" },
+          { "label": "Palette 5", "value": "palette5" },
+          { "label": "Palette 6", "value": "palette6" },
+          { "label": "Palette 7", "value": "palette7" },
+          { "label": "Palette 8", "value": "palette8" },
+          { "label": "Palette 9", "value": "palette9" },
+          { "label": "Palette 10", "value": "palette10" }
         ]
       },
       {
@@ -2336,6 +2427,7 @@
     ]
   },
   "candlestick": {
+    "documentationLink": "https://docs.budibase.com/docs/candlestick-chart",
     "name": "Candlestick Chart",
     "description": "Candlestick chart",
     "icon": "GraphBarVerticalStacked",
@@ -2360,6 +2452,11 @@
         "label": "Date column",
         "key": "dateColumn",
         "dependsOn": "dataProvider",
+        "explanation": {
+          "typeSupport": {
+            "preset": "datetimeLike"
+          }
+        },
         "required": true
       },
       {
@@ -2367,6 +2464,11 @@
         "label": "Open column",
         "key": "openColumn",
         "dependsOn": "dataProvider",
+        "explanation": {
+          "typeSupport": {
+            "preset": "numberLike"
+          }
+        },
         "required": true
       },
       {
@@ -2374,6 +2476,11 @@
         "label": "Close column",
         "key": "closeColumn",
         "dependsOn": "dataProvider",
+        "explanation": {
+          "typeSupport": {
+            "preset": "numberLike"
+          }
+        },
         "required": true
       },
       {
@@ -2381,6 +2488,11 @@
         "label": "High column",
         "key": "highColumn",
         "dependsOn": "dataProvider",
+        "explanation": {
+          "typeSupport": {
+            "preset": "numberLike"
+          }
+        },
         "required": true
       },
       {
@@ -2388,12 +2500,17 @@
         "label": "Low column",
         "key": "lowColumn",
         "dependsOn": "dataProvider",
+        "explanation": {
+          "typeSupport": {
+            "preset": "numberLike"
+          }
+        },
         "required": true
       },
       {
         "type": "select",
         "label": "Format",
-        "key": "yAxisUnits",
+        "key": "valueUnits",
         "options": ["Default", "Thousands", "Millions"],
         "defaultValue": "Default"
       },
@@ -2427,6 +2544,7 @@
     ]
   },
   "histogram": {
+    "documentationLink": "https://docs.budibase.com/docs/histogram-chart",
     "name": "Histogram Chart",
     "description": "Histogram chart",
     "icon": "Histogram",
@@ -2434,7 +2552,6 @@
       "width": 600,
       "height": 400
     },
-    "requiredAncestors": ["dataprovider"],
     "settings": [
       {
         "type": "text",
@@ -2452,6 +2569,11 @@
         "label": "Data column",
         "key": "valueColumn",
         "dependsOn": "dataProvider",
+        "explanation": {
+          "typeSupport": {
+            "preset": "numberLike"
+          }
+        },
         "required": true
       },
       {
@@ -2493,19 +2615,19 @@
         "type": "select",
         "label": "Colors",
         "key": "palette",
-        "defaultValue": "Palette 1",
+        "defaultValue": "palette1",
         "options": [
-          "Custom",
-          "Palette 1",
-          "Palette 2",
-          "Palette 3",
-          "Palette 4",
-          "Palette 5",
-          "Palette 6",
-          "Palette 7",
-          "Palette 8",
-          "Palette 9",
-          "Palette 10"
+          { "label": "Custom", "value": "Custom" },
+          { "label": "Palette 1", "value": "palette1" },
+          { "label": "Palette 2", "value": "palette2" },
+          { "label": "Palette 3", "value": "palette3" },
+          { "label": "Palette 4", "value": "palette4" },
+          { "label": "Palette 5", "value": "palette5" },
+          { "label": "Palette 6", "value": "palette6" },
+          { "label": "Palette 7", "value": "palette7" },
+          { "label": "Palette 8", "value": "palette8" },
+          { "label": "Palette 9", "value": "palette9" },
+          { "label": "Palette 10", "value": "palette10" }
         ]
       },
       {
@@ -5170,19 +5292,19 @@
         "type": "select",
         "label": "Colors",
         "key": "palette",
-        "defaultValue": "Palette 1",
+        "defaultValue": "palette1",
         "options": [
-          "Custom",
-          "Palette 1",
-          "Palette 2",
-          "Palette 3",
-          "Palette 4",
-          "Palette 5",
-          "Palette 6",
-          "Palette 7",
-          "Palette 8",
-          "Palette 9",
-          "Palette 10"
+          { "label": "Custom", "value": "Custom" },
+          { "label": "Palette 1", "value": "palette1" },
+          { "label": "Palette 2", "value": "palette2" },
+          { "label": "Palette 3", "value": "palette3" },
+          { "label": "Palette 4", "value": "palette4" },
+          { "label": "Palette 5", "value": "palette5" },
+          { "label": "Palette 6", "value": "palette6" },
+          { "label": "Palette 7", "value": "palette7" },
+          { "label": "Palette 8", "value": "palette8" },
+          { "label": "Palette 9", "value": "palette9" },
+          { "label": "Palette 10", "value": "palette10" }
         ]
       },
       {
@@ -5262,6 +5384,11 @@
             "label": "Label column",
             "key": "labelColumn",
             "dependsOn": "dataSource",
+            "explanation": {
+              "typeSupport": {
+                "preset": "stringLike"
+              }
+            },
             "required": true
           },
           {
@@ -5269,6 +5396,11 @@
             "label": "Data column",
             "key": "valueColumn",
             "dependsOn": "dataSource",
+            "explanation": {
+              "typeSupport": {
+                "preset": "numberLike"
+              }
+            },
             "required": true
           }
         ]
@@ -5287,6 +5419,11 @@
             "label": "Label column",
             "key": "labelColumn",
             "dependsOn": "dataSource",
+            "explanation": {
+              "typeSupport": {
+                "preset": "stringLike"
+              }
+            },
             "required": true
           },
           {
@@ -5294,6 +5431,11 @@
             "label": "Data column",
             "key": "valueColumn",
             "dependsOn": "dataSource",
+            "explanation": {
+              "typeSupport": {
+                "preset": "numberLike"
+              }
+            },
             "required": true
           }
         ]
@@ -5312,6 +5454,11 @@
             "label": "Label column",
             "key": "labelColumn",
             "dependsOn": "dataSource",
+            "explanation": {
+              "typeSupport": {
+                "preset": "stringLike"
+              }
+            },
             "required": true
           },
           {
@@ -5319,12 +5466,17 @@
             "label": "Data columns",
             "key": "valueColumns",
             "dependsOn": "dataSource",
+            "explanation": {
+              "typeSupport": {
+                "preset": "numberLike"
+              }
+            },
             "required": true
           },
           {
             "type": "select",
             "label": "Format",
-            "key": "yAxisUnits",
+            "key": "valueUnits",
             "options": ["Default", "Thousands", "Millions"],
             "defaultValue": "Default"
           },
@@ -5366,6 +5518,11 @@
             "label": "Value column",
             "key": "valueColumn",
             "dependsOn": "dataSource",
+            "explanation": {
+              "typeSupport": {
+                "preset": "numberLike"
+              }
+            },
             "required": true
           },
           {
@@ -5407,6 +5564,11 @@
             "label": "Label column",
             "key": "labelColumn",
             "dependsOn": "dataSource",
+            "explanation": {
+              "typeSupport": {
+                "preset": "stringLike"
+              }
+            },
             "required": true
           },
           {
@@ -5414,12 +5576,17 @@
             "label": "Data columns",
             "key": "valueColumns",
             "dependsOn": "dataSource",
+            "explanation": {
+              "typeSupport": {
+                "preset": "numberLike"
+              }
+            },
             "required": true
           },
           {
             "type": "select",
             "label": "Format",
-            "key": "yAxisUnits",
+            "key": "valueUnits",
             "options": ["Default", "Thousands", "Millions"],
             "defaultValue": "Default"
           },
@@ -5456,6 +5623,11 @@
             "label": "Label columns",
             "key": "labelColumn",
             "dependsOn": "dataSource",
+            "explanation": {
+              "typeSupport": {
+                "preset": "stringLike"
+              }
+            },
             "required": true
           },
           {
@@ -5463,12 +5635,17 @@
             "label": "Data columns",
             "key": "valueColumns",
             "dependsOn": "dataSource",
+            "explanation": {
+              "typeSupport": {
+                "preset": "numberLike"
+              }
+            },
             "required": true
           },
           {
             "type": "select",
             "label": "Format",
-            "key": "yAxisUnits",
+            "key": "valueUnits",
             "options": ["Default", "Thousands", "Millions"],
             "defaultValue": "Default"
           },
@@ -5517,6 +5694,11 @@
             "label": "Date column",
             "key": "dateColumn",
             "dependsOn": "dataSource",
+            "explanation": {
+              "typeSupport": {
+                "preset": "datetimeLike"
+              }
+            },
             "required": true
           },
           {
@@ -5524,6 +5706,11 @@
             "label": "Open column",
             "key": "openColumn",
             "dependsOn": "dataSource",
+            "explanation": {
+              "typeSupport": {
+                "preset": "numberLike"
+              }
+            },
             "required": true
           },
           {
@@ -5531,6 +5718,11 @@
             "label": "Close column",
             "key": "closeColumn",
             "dependsOn": "dataSource",
+            "explanation": {
+              "typeSupport": {
+                "preset": "numberLike"
+              }
+            },
             "required": true
           },
           {
@@ -5538,6 +5730,11 @@
             "label": "High column",
             "key": "highColumn",
             "dependsOn": "dataSource",
+            "explanation": {
+              "typeSupport": {
+                "preset": "numberLike"
+              }
+            },
             "required": true
           },
           {
@@ -5545,12 +5742,17 @@
             "label": "Low column",
             "key": "lowColumn",
             "dependsOn": "dataSource",
+            "explanation": {
+              "typeSupport": {
+                "preset": "numberLike"
+              }
+            },
             "required": true
           },
           {
             "type": "select",
             "label": "Format",
-            "key": "yAxisUnits",
+            "key": "valueUnits",
             "options": ["Default", "Thousands", "Millions"],
             "defaultValue": "Default"
           },

@@ -41,10 +41,13 @@
   export let footer = null
   export let customAnchor = null
   export let loading
+  export let onOptionMouseenter = () => {}
+  export let onOptionMouseleave = () => {}
 
   const dispatch = createEventDispatcher()
 
   let button
+  let popover
   let component
 
   $: sortedOptions = getSortedOptions(options, getOptionLabel, sort)
@@ -150,6 +153,7 @@
 <Popover
   anchor={customAnchor ? customAnchor : button}
   align={align || "left"}
+  bind:this={popover}
   {open}
   on:close={() => (open = false)}
   useAnchorWidth={!autoWidth}
@@ -198,6 +202,8 @@
             aria-selected="true"
             tabindex="0"
             on:click={() => onSelectOption(getOptionValue(option, idx))}
+            on:mouseenter={e => onOptionMouseenter(e, option)}
+            on:mouseleave={e => onOptionMouseleave(e, option)}
             class:is-disabled={!isOptionEnabled(option)}
           >
             {#if getOptionIcon(option, idx)}
