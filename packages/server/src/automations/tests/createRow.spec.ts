@@ -1,4 +1,6 @@
 import * as setup from "./utilities"
+import { basicTableWithAttachmentField } from "../../tests/utilities/structures"
+import { objectStore } from "@budibase/backend-core"
 
 describe("test the create row action", () => {
   let table: any
@@ -42,5 +44,53 @@ describe("test the create row action", () => {
   it("should check invalid inputs return an error", async () => {
     const res = await setup.runStep(setup.actions.CREATE_ROW.stepId, {})
     expect(res.success).toEqual(false)
+  })
+
+  it("should check that an attachment field is sent to storage and parsed", async () => {
+    let attachmentTable = await config.createTable(
+      basicTableWithAttachmentField()
+    )
+
+    let attachmentRow: any = {
+      tableId: attachmentTable._id,
+    }
+
+    let bucket = "testbucket"
+    let filename = "test.txt"
+    await objectStore.upload({
+      bucket,
+      filename,
+      body: Buffer.from("test data"),
+    })
+    let presignedUrl = await objectStore.getPresignedUrl(
+      bucket,
+      filename,
+      60000
+    )
+
+    let attachmentObject = [
+      {
+        url: presignedUrl,
+        filename,
+      },
+    ]
+
+    attachmentRow.file_attachment = attachmentObject
+    const res = await setup.runStep(setup.actions.CREATE_ROW.stepId, {
+      row: attachmentRow,
+    })
+
+    expect(res.success).toEqual(true)
+    expect(res.row.file_attachment[0]).toHaveProperty("key")
+    let s3Key = res.row.file_attachment[0].key
+
+    const client = objectStore.ObjectStore(objectStore.ObjectStoreBuckets.APPS)
+
+    const objectData = await client
+      .headObject({ Bucket: objectStore.ObjectStoreBuckets.APPS, Key: s3Key })
+      .promise()
+
+    expect(objectData).toBeDefined()
+    expect(objectData.ContentLength).toBeGreaterThan(0)
   })
 })
