@@ -21,7 +21,7 @@
   } from "@budibase/bbui"
   import AppActions from "components/deploy/AppActions.svelte"
   import { API } from "api"
-  import { isActive, goto, layout, redirect } from "@roxi/routify"
+  import { isActive, url, goto, layout, redirect } from "@roxi/routify"
   import { capitalise } from "helpers"
   import { onMount, onDestroy } from "svelte"
   import VerificationPromptBanner from "components/common/VerificationPromptBanner.svelte"
@@ -135,18 +135,15 @@
   <div class="top-nav">
     {#if $appStore.initialised}
       <div class="topleftnav">
-        <span class="back-to-apps">
-          <Icon
-            size="S"
-            hoverable
-            name="BackAndroid"
-            on:click={() => $goto("../../portal/apps")}
-          />
-        </span>
+        <a href={$url("../../portal/apps")} class="linkWrapper back-to-apps">
+          <Icon size="S" hoverable name="BackAndroid" />
+        </a>
         <Tabs {selected} size="M">
           {#each $layout.children as { path, title }}
             <TourWrap stepKeys={[`builder-${title}-section`]}>
               <Tab
+                link
+                href={$url(path)}
                 quiet
                 selected={$isActive(path)}
                 on:click={topItemNavigate(path)}
@@ -196,6 +193,11 @@
 <EnterpriseBasicTrialModal />
 
 <style>
+  .linkWrapper {
+    text-decoration: none;
+    color: inherit;
+  }
+
   .back-to-apps {
     display: contents;
   }

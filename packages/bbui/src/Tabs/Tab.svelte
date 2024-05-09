@@ -5,6 +5,8 @@
   export let title
   export let icon = ""
   export let id
+  export let href = "#"
+  export let link = false
 
   const dispatch = createEventDispatcher()
   let selected = getContext("tab")
@@ -38,7 +40,18 @@
     }
   }
 
-  const onClick = () => {
+  const onAnchorClick = e => {
+    e.preventDefault()
+
+    $selected = {
+      ...$selected,
+      title,
+      info: tab_internal.getBoundingClientRect(),
+    }
+    dispatch("click")
+  }
+
+  const onClick = e => {
     $selected = {
       ...$selected,
       title,
@@ -48,30 +61,55 @@
   }
 </script>
 
-<!-- svelte-ignore a11y-no-static-element-interactions -->
-<!-- svelte-ignore a11y-click-events-have-key-events -->
-<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-<div
-  {id}
-  bind:this={tab_internal}
-  on:click={onClick}
-  class:is-selected={$selected.title === title}
-  class="spectrum-Tabs-item"
-  class:emphasized={$selected.title === title && $selected.emphasized}
-  tabindex="0"
->
-  {#if icon}
-    <svg
-      class="spectrum-Icon spectrum-Icon--sizeM"
-      focusable="false"
-      aria-hidden="true"
-      aria-label="Folder"
-    >
-      <use xlink:href="#spectrum-icon-18-{icon}" />
-    </svg>
-  {/if}
-  <span class="spectrum-Tabs-itemLabel">{title}</span>
-</div>
+{#if link}
+  <a
+    {href}
+    {id}
+    bind:this={tab_internal}
+    on:click={onAnchorClick}
+    class:is-selected={$selected.title === title}
+    class="spectrum-Tabs-item link"
+    class:emphasized={$selected.title === title && $selected.emphasized}
+    tabindex="0"
+  >
+    {#if icon}
+      <svg
+        class="spectrum-Icon spectrum-Icon--sizeM"
+        focusable="false"
+        aria-hidden="true"
+        aria-label="Folder"
+      >
+        <use xlink:href="#spectrum-icon-18-{icon}" />
+      </svg>
+    {/if}
+    <span class="spectrum-Tabs-itemLabel">{title}</span>
+  </a>
+{:else}
+  <!-- svelte-ignore a11y-no-static-element-interactions -->
+  <!-- svelte-ignore a11y-click-events-have-key-events -->
+  <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+  <div
+    {id}
+    bind:this={tab_internal}
+    on:click={onClick}
+    class:is-selected={$selected.title === title}
+    class="spectrum-Tabs-item"
+    class:emphasized={$selected.title === title && $selected.emphasized}
+    tabindex="0"
+  >
+    {#if icon}
+      <svg
+        class="spectrum-Icon spectrum-Icon--sizeM"
+        focusable="false"
+        aria-hidden="true"
+        aria-label="Folder"
+      >
+        <use xlink:href="#spectrum-icon-18-{icon}" />
+      </svg>
+    {/if}
+    <span class="spectrum-Tabs-itemLabel">{title}</span>
+  </div>
+{/if}
 {#if $selected.title === title}
   <Portal target=".spectrum-Tabs-content-{$selected.id}">
     <slot />
@@ -89,4 +127,8 @@
   .spectrum-Tabs-item:hover {
     color: var(--spectrum-global-color-gray-900);
   }
+  .link {
+    user-select: none;
+  }
+
 </style>
