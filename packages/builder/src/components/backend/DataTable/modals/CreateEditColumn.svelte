@@ -381,6 +381,7 @@
       return [
         FIELDS.STRING,
         FIELDS.BARCODEQR,
+        FIELDS.SIGNATURE,
         FIELDS.LONGFORM,
         FIELDS.OPTIONS,
         FIELDS.ARRAY,

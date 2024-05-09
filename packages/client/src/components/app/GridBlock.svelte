@@ -37,6 +37,8 @@
 
   let grid
 
+  $: currentTheme = $context?.device?.theme
+  $: darkMode = !currentTheme?.includes("light")
   $: columnWhitelist = parsedColumns
     ?.filter(col => col.active)
     ?.map(col => col.field)
@@ -129,6 +131,7 @@
         {API}
         {stripeRows}
         {quiet}
+        {darkMode}
         {initialFilter}
         {initialSortColumn}
         {initialSortOrder}
