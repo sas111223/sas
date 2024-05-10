@@ -1,19 +1,19 @@
 <script>
   import { Layout } from "@budibase/bbui"
   import Bulgaria from "../../assets/bulgaria.png"
-  import Covanta from "../../assets/covanta.png"
+  import Covanta from "../../assets/Fotoram.io (2).png"
   import Schnellecke from "../../assets/schnellecke.png"
 
   const testimonials = [
     {
-      text: "Budibase was the only solution that checked all the boxes for Covanta. Covanta expects to realize $3.2MM in savings due to the elimination of redundant data entry.",
-      name: "Charles Link",
-      role: "Senior Director, Data and Analytics",
+      text: "3 words win win again",
+      name: "srk",
+      role: "IT",
       image: Covanta,
-      imageSize: 105,
+      imageSize: 50,
     },
     {
-      text: "Budibase was mission-critical for us and went a long way in preventing what could have become a humanitarian crisis here in Bulgaria.",
+      text: " mission-critical for us and went a long way in preventing what could have become a humanitarian crisis here in Bulgaria.",
       name: "Bozhidar Bozhanov",
       role: "Government of Bulgaria",
       image: Bulgaria,
@@ -55,13 +55,16 @@
   .text {
     font-size: var(--font-size-l);
     font-style: italic;
+    color: black;
   }
   .name {
     font-weight: bold;
     color: var(--spectrum-global-color-gray-900);
     font-size: var(--font-size-l);
+    color: black;
   }
   .company {
     color: var(--spectrum-global-color-gray-700);
+    color: black;
   }
 </style>
