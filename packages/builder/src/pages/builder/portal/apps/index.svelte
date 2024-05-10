@@ -202,7 +202,7 @@
       <div class="welcome">
         <Layout noPadding gap="XS">
           <Heading size="L">{welcomeHeader}</Heading>
-          <Body size="M">
+          <Body class="app-list-heading">
             Below you'll find the list of apps that you have access to
           </Body>
         </Layout>
@@ -289,7 +289,7 @@
     {#if creatingFromTemplate}
       <div class="empty-wrapper">
         <img class="img-logo img-size" alt="logo" src={Logo} />
-        <p>Creating your Budibase app from your selected template...</p>
+        <p>Creating your carenty app from your selected template...</p>
         <Spinner size="10" />
       </div>
     {/if}

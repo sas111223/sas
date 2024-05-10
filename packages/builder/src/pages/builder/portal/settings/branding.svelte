@@ -223,7 +223,7 @@
           </Tags>
         {/if}
       </div>
-      <Body>Remove all Budibase branding and use your own.</Body>
+      <Body>Remove all Carenty branding and use your own.</Body>
     </Layout>
     <Divider />
     <div class="branding fields">
@@ -292,7 +292,7 @@
       </div>
       <div>
         <Toggle
-          text={"Remove Budibase brand from emails"}
+          text={"Remove Carenty brand from emails"}
           on:change={e => {
             let clone = { ...config }
             clone.emailBrandingEnabled = !e.detail
