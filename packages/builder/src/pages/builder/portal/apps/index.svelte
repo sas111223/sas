@@ -29,7 +29,7 @@
   } from "stores/portal"
   import { goto } from "@roxi/routify"
   import AppRow from "components/start/AppRow.svelte"
-  import Logo from "assets/bb-space-man.svg"
+  import Logo from "assets/carentyroundlogo.png"
 
   let template
   let creationModal
