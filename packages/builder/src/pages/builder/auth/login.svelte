@@ -72,7 +72,7 @@
         {#if loaded}
           <img alt="logo" src={$organisation.logoUrl || Logo} />
         {/if}
-        <Heading size="M">
+        <Heading size="XL">
           {$organisation.loginHeading || "Log in to Carenty"}
         </Heading>
       </Layout>
@@ -170,6 +170,7 @@
   .user-actions {
     display: flex;
     align-items: center;
+    font-style: italic;
   }
   img {
     width: 48px;

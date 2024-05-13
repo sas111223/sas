@@ -50,7 +50,7 @@
   <Layout gap="S" noPadding>
     <img alt="logo" src={$organisation.logoUrl || Logo} />
     <span class="heading-wrap">
-      <Heading size="M">
+      <Heading size="L">
         <div class="heading-content">
           <span class="back-chev" on:click={() => $goto("../")}>
             <Icon name="ChevronLeft" size="XL" />

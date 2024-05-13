@@ -1,30 +1,30 @@
 <script>
   import { Layout } from "@budibase/bbui"
-  import Bulgaria from "../../assets/bulgaria.png"
+  import Bulgaria from "../../assets/Fotoram.io (2).png"
   import Covanta from "../../assets/Fotoram.io (2).png"
-  import Schnellecke from "../../assets/schnellecke.png"
+  import Schnellecke from "../../assets/Fotoram.io (2).png"
 
   const testimonials = [
     {
-      text: "3 words win win again",
-      name: "srk",
-      role: "IT",
+      text: "Automation streamlines repetitive tasks, reducing the need for manual intervention. This frees up employees to focus on more value-added activities, thereby increasing overall efficiency.",
+      name: "- Carenty",
+      role: "Core",
       image: Covanta,
-      imageSize: 50,
+      imageSize: 45,
     },
     {
-      text: " mission-critical for us and went a long way in preventing what could have become a humanitarian crisis here in Bulgaria.",
-      name: "Bozhidar Bozhanov",
-      role: "Government of Bulgaria",
+      text: "By automating processes, businesses can save on labor costs associated with manual work. Additionally, automation reduces the likelihood of errors, minimizing costly mistakes.",
+      name: "- Carenty",
+      role: "",
       image: Bulgaria,
-      imageSize: 49,
+      imageSize: 45,
     },
     {
-      text: "Centralization of authentication, quick turnaround time for requests, integration with different database systems has given it the edge and it’s now used daily for internal development for those apps that you know you need but don’t feel value in losing days of development to reinvent the wheel.",
-      name: "Davide Lenzarini",
-      role: "IT manager",
+      text: "Automation software can collect and analyze data in real-time, providing insights that enable informed decision-making. This helps businesses stay agile and competitive in dynamic markets",
+      name: "- Carenty",
+      role: "IT",
       image: Schnellecke,
-      imageSize: 141,
+      imageSize: 45,
     },
   ]
   const testimonial = testimonials[Math.floor(Math.random() * 3)]
@@ -54,7 +54,7 @@
   }
   .text {
     font-size: var(--font-size-l);
-    font-style: italic;
+    font-style: oblique;
     color: black;
   }
   .name {
