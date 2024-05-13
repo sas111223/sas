@@ -44,10 +44,10 @@
 </script>
 
 <TestimonialPage>
-  <Layout gap="M" noPadding>
+  <Layout gap="L" noPadding>
     <Layout justifyItems="center" noPadding>
       <img alt="logo" src={Logo} />
-      <Heading size="M">Create an admin user</Heading>
+      <Heading size="">Create an admin user</Heading>
       <Body>Lets Connect with Carenty</Body>
     </Layout>
     <Layout gap="S" noPadding>
@@ -133,6 +133,7 @@
         size="L"
         disabled={Object.keys(errors).length > 0 || submitted}
         on:click={save}
+        class="pink-button"
       >
         Create admin user
       </Button>
