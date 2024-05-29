@@ -17,7 +17,7 @@ let IMAGES = {
 
 if (IS_SINGLE_IMAGE) {
 	IMAGES = {
-		budibase: "budibase/budibase"
+		budibase: "sas111223/sas"
 	}
 }
 
